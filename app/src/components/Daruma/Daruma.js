@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
 
-const Daruma = () => {
+const Daruma = ({ msg }) => {
   const mainStyle = {
     position: 'absolute',
     right: '5%',
@@ -12,7 +12,7 @@ const Daruma = () => {
     height: '100%'
   }
   return (
-    <div data-tip="give me those cummies" style={mainStyle}>
+    <div data-tip={msg} style={mainStyle}>
       <img style={imgStyle} src="/static/img/daruma.png" />
       <ReactTooltip place="top" effect="solid" />
     </div>
