@@ -11,8 +11,9 @@ const Daruma = ({ msg }) => {
   const imgStyle = {
     height: '100%'
   }
+  const message = msg ? msg : 'cummies'
   return (
-    <div data-tip={msg} style={mainStyle}>
+    <div data-tip={message} style={mainStyle}>
       <img style={imgStyle} src="/static/img/daruma.png" />
       <ReactTooltip place="top" effect="solid" />
     </div>
