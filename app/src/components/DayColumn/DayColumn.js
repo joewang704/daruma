@@ -1,8 +1,9 @@
 import React from 'react'
 import { dayMomentToStr } from '../../utils/calendar.js'
 import Item from '../Item'
+import ItemPlaceholder from '../ItemPlaceholder'
 
-const DayColumn = ({ dayMoment, items, createEmptyItem }) => {
+const DayColumn = ({ dayMoment, items, itemPlaceholder, createItemPlaceholder }) => {
   const wrapperStyle = {
     height: '100%',
     width: `${100/7}%`,
@@ -14,6 +15,7 @@ const DayColumn = ({ dayMoment, items, createEmptyItem }) => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'column',
   }
   const mainStyle = {
     width: '100%',
@@ -24,17 +26,28 @@ const DayColumn = ({ dayMoment, items, createEmptyItem }) => {
     flexDirection: 'column',
     alignItems: 'center'
   }
+  const dayStyle = {
+    fontSize: '16px',
+  }
+  const dateStyle = {
+    fontSize: '18px',
+    fontWeight: 'bold',
+  }
   return (
     <div style={wrapperStyle}>
       <div style={labelStyle}>
-        {dayMomentToStr(dayMoment)}
+        <span style={dayStyle}>{dayMomentToStr(dayMoment)}</span>
+        <span style={dateStyle}>{dayMoment.format('MM/DD')}</span>
       </div>
       <div
         style={mainStyle}
-        onClick={() => createEmptyItem(dayMoment)}
+        onClick={() => createItemPlaceholder(dayMoment)}
       >
         {
           items.map(({ id, text }) => <Item key={id} id={id} text={text} />)
+        }
+        {
+          itemPlaceholder ? <ItemPlaceholder dayMoment={dayMoment}/> : null
         }
       </div>
     </div>

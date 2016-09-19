@@ -94,35 +94,7 @@ app.post('/logout', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-  res.send('hello world')
-})
-
-app.get('/groups', requireAuth, (req, res) => {
-  db.getGroups(req.user).then((groups) => {
-    res.send(JSON.stringify(groups))
-  }).catch((err) => {
-    res.send(err)
-  })
-})
-
-app.post('/groups', requireAuth, (req, res) => {
-  db.addGroup(req.body)
-    .then((result) => {
-      res.send(result)
-    })
-    .catch((error) => {
-      res.send(error)
-    })
-})
-
-app.delete('/groups/:id', requireAuth, (req, res) => {
-  db.deleteGroup(req.params.id)
-    .then((result) => {
-      res.send(result)
-    })
-    .catch((error) => {
-      res.send(error)
-    })
+  res.send('API is running correctly!')
 })
 
 app.get('/createItemsTable', (req, res) => {
@@ -130,54 +102,21 @@ app.get('/createItemsTable', (req, res) => {
   res.send('yay')
 })
 
-app.get('/createGroupsTable', (req, res) => {
-  db.createGroupsTable()
-    .then((res) => {
-      res.send('yay')
-    })
-    .catch((err) => {
-      res.send(err)
-    })
-})
-
-app.get('/resetGroupsTable', requireAuth, (req, res) => {
-  db.dropGroups().then(() => {
-    return db.createGroupsTable()
-  }).then(() => {
-    return res.send('groups table reset!')
+app.get('/items', (req, res) => {
+  db.getItems().then((items) => {
+    res.send(items)
   }).catch((err) => {
-    res.send(err)
+    res.send({ err })
   })
 })
 
-app.get('/resetGroups', requireAuth, (req, res) => {
-  db.dropItems().then(() => {
-    return db.clearGroups()
-  }).then(() => {
-    return db.createItemsTable()
-  // }).then(() => {
-  //   return db.addGroup({ name: 'Default', color: '#808080' })
-  }).catch((err) => {
-    console.log(err)
-  })
-  res.send('tables reset! remember to get this rid of this endpoint')
-})
-
-app.get('/items', requireAuth, (req, res) => {
-  db.getItems(req.user).then((items) => {
-    res.send(JSON.stringify(items))
-  }).catch((err) => {
-    console.log(err)
-  })
-})
-
-app.post('/items', requireAuth, (req, res) => {
+app.post('/items', (req, res) => {
   db.addItem(req.body)
     .then((result) => {
       res.send(result)
     })
-    .catch((error) => {
-      res.send(error)
+    .catch((err) => {
+      res.send({ err })
     })
 })
 
@@ -196,7 +135,7 @@ app.post('/items/:id', requireAuth, (req, res) => {
   }
 })
 
-app.delete('/items/:id', requireAuth, (req, res) => {
+app.delete('/items/:id', (req, res) => {
   db.deleteItem(req.params.id)
     .then((result) => {
       res.send(result)

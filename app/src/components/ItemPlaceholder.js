@@ -1,14 +1,14 @@
 import React, { Component, PropTypes } from 'react'
-import { deleteItem } from '../actions/items'
+import { createItem, deleteItemPlaceholder } from '../actions/items.js'
 
-class Item extends Component {
+class ItemPlaceholder extends Component {
   constructor(props) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.onDelete = this.onDelete.bind(this)
     this.state = {
-      text: props.text,
+      text: '',
     }
   }
 
@@ -20,14 +20,18 @@ class Item extends Component {
 
   onSubmit(event) {
     if (event.keyCode == 13) {
-      // update text in store
       event.target.blur()
+      //this.context.store.dispatch(deleteItemPlaceholder())
+      this.context.store.dispatch(
+        createItem(this.state.text, this.props.dayMoment)
+      )
     }
   }
 
   onDelete(event) {
     event.stopPropagation()
-    this.context.store.dispatch(deleteItem(this.props.id))
+    // TODO: dispatch placeholder deletion
+    this.context.store.dispatch(deleteItemPlaceholder())
   }
 
   render() {
@@ -51,6 +55,7 @@ class Item extends Component {
           onClick={(event) => event.stopPropagation()}
           onChange={this.handleChange}
           onKeyDown={this.onSubmit}
+          autoFocus
         />
         <i
           style={{
@@ -68,9 +73,10 @@ class Item extends Component {
   }
 }
 
-Item.contextTypes = {
+ItemPlaceholder.contextTypes = {
   store: PropTypes.object,
 }
 
-export default Item
+export default ItemPlaceholder
+
 

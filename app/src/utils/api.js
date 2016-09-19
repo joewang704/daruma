@@ -30,10 +30,8 @@ export const saveGroup = (group) => {
     .then(res => res.json())
 }
 
-
-export const createItemInDb = (item, id) => {
-  const endpoint = id ? `/items/${id}` : '/items'
-  return api(endpoint, 'POST',
+export const createItemInDb = (item) => {
+  return api('/items', 'POST',
       JSON.stringify(item)).then(res => res.json())
 }
 
@@ -46,3 +44,4 @@ export const deleteGroupInDb = (id) => {
   return api(`/groups/${id}`, 'DELETE')
     .then(res => res.json())
 }
+

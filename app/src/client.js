@@ -7,12 +7,20 @@ import App from './components/App'
 import thunk from 'redux-thunk'
 import transit from 'transit-immutable-js'
 import { AppContainer } from 'react-hot-loader'
+import moment from 'moment'
 
-const immutableState = transit.fromJSON(window.__INITIAL_STATE__)
+let state = transit.fromJSON(window.__INITIAL_STATE__)
+
+// serialize moment date objects
+state.items = state.items.map(item => {
+  const { date } = item
+  item.date = date ? moment(date) : null
+  return item
+})
 
 const store = createStore(
   rootReducer,
-  immutableState,
+  state,
   applyMiddleware(thunk)
 )
 

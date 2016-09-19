@@ -83,17 +83,19 @@ app.post('/logout', (req, res) => {
 })*/
 
 app.get('/', (req, res) => {
-  const store = createStore(reducers)
-  let component
-  try {
-    component = renderToString(
-    <Provider store={store}>
-      <App />
-    </Provider>)
-  } catch (err) {
-    res.send(`Server error: ${err}`)
-  }
-  return res.send(renderFullPage(component, store.getState()))
+  getInitialStoreState().then((initialState) => {
+    const store = createStore(reducers, initialState)
+    let component
+    try {
+      component = renderToString(
+      <Provider store={store}>
+        <App />
+      </Provider>)
+    } catch (err) {
+      res.send(`Server error: ${err}`)
+    }
+    return res.send(renderFullPage(component, store.getState()))
+  }).catch((err) => res.send(`Server error: ${err}`))
 })
 
 const renderFullPage = (component, initialState) => {

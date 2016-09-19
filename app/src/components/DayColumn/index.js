@@ -1,25 +1,25 @@
 import { connect } from 'react-redux'
-import { createItem } from '../../actions/items'
+import { createItemPlaceholder } from '../../actions/items'
 import DayColumn from './DayColumn'
 
-const mapStateToProps = ({ items }, ownProps) => {
+const mapStateToProps = ({ items, ui }, ownProps) => {
+  let renderItems = []
   if (items && items.size > 0) {
     const itemObj = items.toJS()
-    console.log(itemObj)
-    return {
-      items: Object.keys(itemObj).filter((id) =>
-        ownProps.dayMoment.isSame(itemObj[id].date)
-      ).map((id) => itemObj[id])
-    }
+    renderItems = Object.keys(itemObj).filter((id) =>
+      ownProps.dayMoment.isSame(itemObj[id].date)
+    ).map((id) => itemObj[id])
   }
+  let uiObj = ui.toJS()
   return {
-    items: []
+    items: renderItems,
+    itemPlaceholder: uiObj.itemPlaceholder && uiObj.itemPlaceholder.date.isSame(ownProps.dayMoment) ? ui.toJS().itemPlaceholder.date : null
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    createEmptyItem: (date) => dispatch(createItem('', date)),
+    createItemPlaceholder: (date) => dispatch(createItemPlaceholder(date)),
   }
 }
 
