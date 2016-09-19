@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import Daruma from './Daruma'
+import { clearDaruma } from '../../actions/items'
 
 const mapStateToProps = (state) => {
   return {
@@ -7,9 +8,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = () => {
-  return {}
-}
+const mapDispatchToProps = (dispatch) => ({
+  clearDaruma() {
+    dispatch(clearDaruma())
+  }
+})
 
 const Container = connect(
   mapStateToProps,

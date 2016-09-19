@@ -1,7 +1,13 @@
 import { ADD_ITEM, EDIT_ITEM, REMOVE_ITEM,
-  ADD_ITEM_PLACEHOLDER, REMOVE_ITEM_PLACEHOLDER } from '../utils/actionConstants'
+  ADD_ITEM_PLACEHOLDER, REMOVE_ITEM_PLACEHOLDER, CLEAR_DARUMA } from '../utils/actionConstants'
 import { createItemInDb, deleteItemInDb } from '../utils/api.js'
 
+
+export const clearDaruma = () => {
+  return {
+    type: CLEAR_DARUMA
+  }
+}
 export const createItem = (text, date) => {
   return dispatch => {
     createItemInDb({
