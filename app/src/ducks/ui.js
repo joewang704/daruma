@@ -1,5 +1,23 @@
 import { fromJS } from 'immutable'
-import { ADD_ITEM, ADD_ITEM_PLACEHOLDER, REMOVE_ITEM_PLACEHOLDER } from '../utils/actionConstants.js'
+import { ADD_ITEM } from './items.js'
+
+export const ADD_ITEM_PLACEHOLDER = 'ADD_ITEM_PLACEHOLDER'
+export const REMOVE_ITEM_PLACEHOLDER = 'REMOVE_ITEM_PLACEHOLDER'
+
+export const createItemPlaceholder = (date) => {
+  return {
+    type: ADD_ITEM_PLACEHOLDER,
+    payload: {
+      date,
+    },
+  }
+}
+
+export const deleteItemPlaceholder = () => {
+  return {
+    type: REMOVE_ITEM_PLACEHOLDER,
+  }
+}
 
 const initialState = fromJS({})
 

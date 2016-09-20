@@ -1,7 +1,7 @@
 import React from 'react'
-import { dayMomentToStr } from '../../utils/calendar.js'
 import Item from '../Item'
 import ItemPlaceholder from '../ItemPlaceholder'
+import { dayMomentToStr } from '../../utils/calendar.js'
 
 const DayColumn = ({ dayMoment, items, itemPlaceholder, createItemPlaceholder }) => {
   const wrapperStyle = {

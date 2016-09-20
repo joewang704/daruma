@@ -7,6 +7,7 @@ export const dayMomentToStr = (dayMoment) => {
     .replace('nes', '').toUpperCase()
 }
 
-export const days = [0, 1, 2, 3, 4, 5, 6].map((num) => {
-  return moment().startOf('isoWeek').add(num, 'days')
-})
+export const weekFromStartDate = (startDate) =>
+  [0, 1, 2, 3, 4, 5, 6].map(
+    (num) => moment(startDate).add(num, 'days')
+  )

@@ -2,7 +2,7 @@
 import express from 'express'
 import React from 'react'
 import { createStore } from 'redux'
-import reducers from '../reducers'
+import reducers from '../ducks'
 import { renderToString } from 'react-dom/server'
 import App from '../components/App'
 import { Provider } from 'react-redux'

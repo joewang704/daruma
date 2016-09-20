@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { createItem, deleteItemPlaceholder } from '../actions/items.js'
+import { createItem } from '../ducks/items.js'
+import { deleteItemPlaceholder } from '../ducks/ui.js'
 
 class ItemPlaceholder extends Component {
   constructor(props) {
@@ -21,7 +22,6 @@ class ItemPlaceholder extends Component {
   onSubmit(event) {
     if (event.keyCode == 13) {
       event.target.blur()
-      //this.context.store.dispatch(deleteItemPlaceholder())
       this.context.store.dispatch(
         createItem(this.state.text, this.props.dayMoment)
       )
@@ -30,7 +30,6 @@ class ItemPlaceholder extends Component {
 
   onDelete(event) {
     event.stopPropagation()
-    // TODO: dispatch placeholder deletion
     this.context.store.dispatch(deleteItemPlaceholder())
   }
 

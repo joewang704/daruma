@@ -1,13 +1,31 @@
-import { ADD_ITEM, EDIT_ITEM, REMOVE_ITEM,
-  ADD_ITEM_PLACEHOLDER, REMOVE_ITEM_PLACEHOLDER, CLEAR_DARUMA } from '../utils/actionConstants'
+import { fromJS } from 'immutable'
 import { createItemInDb, deleteItemInDb } from '../utils/api.js'
 
+export const ADD_ITEM = 'ADD_ITEM'
+export const REMOVE_ITEM = 'REMOVE_ITEM'
 
-export const clearDaruma = () => {
-  return {
-    type: CLEAR_DARUMA
+const initialState = fromJS({})
+
+const reducer = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case ADD_ITEM: {
+      const { id, text, date } = payload
+      return state.set(id, fromJS({
+        id,
+        text,
+        date,
+      }))
+    }
+    case REMOVE_ITEM: {
+      return state.delete(payload.id)
+    }
+    default:
+      return state
   }
 }
+
+export default reducer
+
 export const createItem = (text, date) => {
   return dispatch => {
     createItemInDb({
@@ -26,7 +44,7 @@ export const createItem = (text, date) => {
   }
 }
 
-export const saveItem = (text, date) => {
+/*export const saveItem = (text, date) => {
   return dispatch => {
     // TODO: this should edit item in db
     createItemInDb({
@@ -38,27 +56,13 @@ export const saveItem = (text, date) => {
         payload: {
           id: res.id,
           text,
-          date,
+          date: date.valueOf(),
         },
       })
     })
   }
 }
-
-export const createItemPlaceholder = (date) => {
-  return {
-    type: ADD_ITEM_PLACEHOLDER,
-    payload: {
-      date,
-    },
-  }
-}
-
-export const deleteItemPlaceholder = () => {
-  return {
-    type: REMOVE_ITEM_PLACEHOLDER,
-  }
-}
+*/
 
 export const deleteItem = id => {
   return dispatch => {

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { deleteItem } from '../actions/items'
+import { deleteItem } from '../ducks/items.js'
 
 class Item extends Component {
   constructor(props) {

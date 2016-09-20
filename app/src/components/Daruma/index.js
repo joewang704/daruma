@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Daruma from './Daruma'
-import { clearDaruma } from '../../actions/items'
+import { clearDaruma } from '../../ducks/daruma.js'
 
 const mapStateToProps = (state) => {
   return {

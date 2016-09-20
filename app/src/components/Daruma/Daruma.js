@@ -15,6 +15,7 @@ class Daruma extends React.Component {
       }, 3000)
     }
   }
+
   render() {
     const mainStyle = {
       position: 'absolute',
@@ -25,9 +26,8 @@ class Daruma extends React.Component {
     const imgStyle = {
       height: '100%'
     }
-    const message = this.props.msg ? this.props.msg : 'cummies'
     return (
-      <div data-tip={message} style={mainStyle}>
+      <div data-tip={this.props.msg || 'cummies'} style={mainStyle}>
         <img style={imgStyle} src="/static/img/daruma.png" />
         <ReactTooltip place="top" effect="solid" defaultVisible />
       </div>
